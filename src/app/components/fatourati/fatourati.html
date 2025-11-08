@@ -1,0 +1,83 @@
+<div class="container">
+    <!-- Header -->
+    <div class="header">
+        <h1><i class="fas fa-receipt"></i> Fatourati</h1>
+        <p>Plateforme de paiement en ligne - Factures et services</p>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls">
+        <div class="search-box">
+            <input type="text" [(ngModel)]="searchQuery" (input)="applyFilters()" placeholder="Rechercher un service...">
+            <i class="fas fa-search"></i>
+        </div>
+
+        <div class="filter-group">
+            <select class="filter-select" [(ngModel)]="selectedCategory" (change)="applyFilters()">
+                <option value="">Toutes les catégories</option>
+                <option value="water-electricity">Eau & Électricité</option>
+                <option value="education">Éducation</option>
+                <option value="business">Entreprises</option>
+                <option value="fuel">Carburant</option>
+                <option value="technology">Technologie</option>
+            </select>
+
+            <select class="filter-select" [(ngModel)]="selectedRegion" (change)="applyFilters()">
+                <option value="">Toutes les régions</option>
+                <option value="casablanca-settat">Casablanca-Settat</option>
+                <option value="rabat-sale-kenitra">Rabat-Salé-Kénitra</option>
+                <option value="fes-meknes">Fès-Meknès</option>
+                <option value="marrakech-safi">Marrakech-Safi</option>
+                <option value="tanger-tetouan">Tanger-Tétouan-Al Hoceima</option>
+                <option value="souss-massa">Souss-Massa</option>
+                <option value="oriental">L'Oriental</option>
+                <option value="beni-mellal">Béni Mellal-Khénifra</option>
+                <option value="draa-tafilalt">Draa-Tafilalt</option>
+                <option value="laayoune">Laâyoune-Sakia El Hamra</option>
+                <option value="dakhla">Dakhla-Oued Ed-Dahab</option>
+                <option value="guelmim">Guelmim-Oued Noun</option>
+            </select>
+
+            <select class="filter-select" [(ngModel)]="sortOrder" (change)="applyFilters()">
+                <option value="name-asc">Nom A-Z</option>
+                <option value="name-desc">Nom Z-A</option>
+                <option value="category">Par catégorie</option>
+            </select>
+        </div>
+
+        <div class="view-toggle">
+            <button class="view-btn" [class.active]="currentView === 'grid'" (click)="setView('grid')">
+                <i class="fas fa-th"></i>
+            </button>
+            <button class="view-btn" [class.active]="currentView === 'list'" (click)="setView('list')">
+                <i class="fas fa-list"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <fat-stats [totalServices]="totalServices" [filteredServices]="filteredServices.length">
+    </fat-stats>
+
+    <!-- Services Container -->
+    <div class="services-container" [class.list-view]="currentView === 'list'">
+        <!-- Loading State -->
+        <fat-loading *ngIf="isLoading"></fat-loading>
+
+        <!-- Empty State -->
+        <fat-empty-state *ngIf="!isLoading && filteredServices.length === 0"></fat-empty-state>
+
+        <!-- Services Grid -->
+        <div class="services-grid" *ngIf="!isLoading && filteredServices.length > 0">
+            <fat-service-card *ngFor="let service of filteredServices; trackBy: trackByServiceId" [service]="service" [categoryStyle]="getCategoryStyle(service.category)" [categoryLabel]="getCategoryLabel(service.category)" (visitService)="visitService($event)" (showBranches)="showBranches($event)">
+            </fat-service-card>
+        </div>
+    </div>
+
+    <!-- Service Modal -->
+    <fat-service-modal *ngIf="selectedService" [service]="selectedService" (closeModal)="closeModal()">
+    </fat-service-modal>
+
+    <!-- Footer -->
+    <fat-footer [currentYear]="currentYear"></fat-footer>
+</div>

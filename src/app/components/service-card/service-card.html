@@ -1,0 +1,27 @@
+<div class="service-card" (click)="onCardClick()">
+    <div class="service-header">
+        <img [src]="service.logo" [alt]="service.name" class="service-logo" (error)="onImageError($event)">
+
+        <div class="service-info">
+            <div class="service-category" [ngStyle]="categoryStyle">
+                {{ categoryLabel }}
+            </div>
+            <h3>{{ service.name }}</h3>
+            <p *ngIf="service.branches" class="branches-info">
+                <i class="fas fa-map-marker-alt"></i>
+                {{ service.branches.length }} succursales
+            </p>
+        </div>
+    </div>
+
+    <div class="service-actions" (click)="$event.stopPropagation()">
+        <a [href]="service.url" class="btn btn-primary" target="_blank">
+            <i class="fas fa-credit-card"></i>
+            Payer
+        </a>
+        <button *ngIf="service.branches" class="btn btn-outline" (click)="onShowBranches($event)">
+            <i class="fas fa-list"></i>
+            Voir les succursales
+        </button>
+    </div>
+</div>

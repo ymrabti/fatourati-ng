@@ -1,0 +1,34 @@
+<div class="modal" (click)="onModalBackdropClick()">
+    <div class="modal-content" (click)="onModalContentClick($event)">
+        <div class="modal-header">
+            <h3>{{ service.name }}</h3>
+            <button class="close-btn" (click)="onCloseModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <p>{{ service.description }}</p>
+
+            <div *ngIf="service.branches" class="branches-section">
+                <h4>Succursales disponibles :</h4>
+                <div class="branches-list">
+                    <div class="branch-item" *ngFor="let branch of service.branches">
+                        <span class="branch-name">{{ branch.name }}</span>
+                        <a [href]="branch.url" class="btn btn-sm btn-outline" target="_blank">
+                            <i class="fas fa-external-link-alt"></i>
+                            Payer
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <a [href]="service.url" class="btn btn-primary" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+                Visiter le service
+            </a>
+        </div>
+    </div>
+</div>
