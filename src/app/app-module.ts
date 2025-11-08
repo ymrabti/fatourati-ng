@@ -11,15 +11,12 @@ import { Loading } from './components/loading/loading';
 import { ServiceCard } from './components/service-card/service-card';
 import { ServiceModal } from './components/service-modal/service-modal';
 import { Stats } from './components/stats/stats';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [App, Fatourati, EmptyState, Footer, Loading, ServiceCard, ServiceModal, Stats],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    AppRoutingModule,
-  ],
-  providers: [provideBrowserGlobalErrorListeners()],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  providers: [provideBrowserGlobalErrorListeners(), provideAnimationsAsync()],
   bootstrap: [App],
 })
 export class AppModule {}

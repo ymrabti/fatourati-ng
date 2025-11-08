@@ -10,7 +10,7 @@
         <div class="modal-body">
             <p>{{ service.description }}</p>
 
-            <div *ngIf="service.branches" class="branches-section">
+            <div [@if]="service.branches" class="branches-section">
                 <h4>Succursales disponibles :</h4>
                 <div class="branches-list">
                     <div class="branch-item" *ngFor="let branch of service.branches">
